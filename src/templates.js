@@ -15,7 +15,7 @@ module.exports = async function(Vue) {
     `
   })
   console.log(resources)
-  resources.data.allResources.nodes.forEach(async resource => {
+  const done = await resources.data.allResources.nodes.forEach(async resource => {
     resourceTemplates = await apolloClient.query({
       query: gql`
         {
