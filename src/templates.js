@@ -22,7 +22,7 @@ module.exports = async function(Vue) {
 const loadTemplates = async (n, resources, Vue) => {
   const apolloClient = Vue.prototype.$apolloClient;
   const resource = resources[n]
-  if (resource && sresource.name) {
+  if (resource && resource.name) {
     resourceTemplates = await apolloClient.query({
       query: gql`
         {
