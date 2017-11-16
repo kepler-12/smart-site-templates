@@ -19,7 +19,7 @@ module.exports = async function(Vue) {
   return true;
 }
 
-const loadTemplates = (n, resources) => {
+const loadTemplates = async (n, resources) => {
   const resource = resources[n]
   resourceTemplates = await apolloClient.query({
     query: gql`
