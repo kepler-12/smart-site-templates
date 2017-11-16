@@ -42,7 +42,7 @@ const loadTemplates = async (n, resources, Vue) => {
   }) 
   const templates = resourceTemplates.data[resource.name].nodes[0].templates
   templates.nodes.forEach(template => {
-    conosle.log(template);
+    console.log(template);
     if (template.name && template.html) {
       Vue.component(template.name, Vue.prototype.$stringToTemplate(`${template.html}${template.css || ''}${template.js || ''}`))
     }
