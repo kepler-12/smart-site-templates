@@ -36,6 +36,7 @@ module.exports = async function(Vue) {
     }) 
     console.log(resourceTemplates)  
     const templates = resourceTemplates.data[resource.name].nodes[0].templates
+    console.log(templates)
     templates.nodes.forEach(template => {
       Vue.component(template.name, Vue.prototype.$stringToTemplate(`${template.html}${template.css}${template.js}`))
     })
