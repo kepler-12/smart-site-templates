@@ -41,14 +41,14 @@ const loadTemplates = async (n, resources, Vue) => {
         }
       `
     }) 
+    const templates = resourceTemplates.data[resource.name].nodes[0].templates
+    templates.nodes.forEach(template => {
+      console.log(template);
+      if (template.name && template.html && template.js) {
+        Vue.component(template.name, Vue.prototype.$stringToTemplate(`<template>${template.html}</template><style>${template.css || ''}</style><script>${template.js || ''}</script>`))
+      }
+    })
   }
-  const templates = resourceTemplates.data[resource.name].nodes[0].templates
-  templates.nodes.forEach(template => {
-    console.log(template);
-    if (template.name && template.html && template.js) {
-      Vue.component(template.name, Vue.prototype.$stringToTemplate(`<template>${template.html}</template><style>${template.css || ''}</style><script>${template.js || ''}</script>`))
-    }
-  })
   if (n >= resources.length) {
     return true;
   } else {
