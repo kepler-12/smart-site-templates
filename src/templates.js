@@ -48,6 +48,6 @@ const loadTemplates = async (n, resources, Vue) => {
     return true;
   } else {
     n++
-    loadTemplates(n, resources, Vue)
+    return await loadTemplates(n, resources, Vue)
   }
 }
