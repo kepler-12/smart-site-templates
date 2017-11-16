@@ -40,4 +40,5 @@ module.exports = async function(Vue) {
       Vue.component(template.name, Vue.prototype.$stringToTemplate(`${template.html}${template.css}${template.js}`))
     })
   }) 
+  return true;
 }
