@@ -42,7 +42,10 @@ const loadTemplates = async (n, resources, Vue) => {
   }) 
   const templates = resourceTemplates.data[resource.name].nodes[0].templates
   templates.nodes.forEach(template => {
-    Vue.component(template.name, Vue.prototype.$stringToTemplate(`${template.html}${template.css}${template.js}`))
+    conosle.log(template);
+    if (template.name && template.html) {
+      Vue.component(template.name, Vue.prototype.$stringToTemplate(`${template.html}${template.css || ''}${template.js || ''}`))
+    }
   })
   if (n >= resources.length) {
     return true;
