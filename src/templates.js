@@ -15,31 +15,38 @@ module.exports = async function(Vue) {
     `
   })
   console.log(resources)
-  const done = await resources.data.allResources.nodes.forEach(async resource => {
-    resourceTemplates = await apolloClient.query({
-      query: gql`
-        {
-          ${resource.name} {
-            nodes {
-              templates{
-                nodes {
-                  name
-                  html
-                  css
-                  js
-                }
+  const done = await loadTemplates(0, resources)
+  return true;
+}
+
+const loadTemplates = (n, resources) => {
+  const resource = resources[n]
+  resourceTemplates = await apolloClient.query({
+    query: gql`
+      {
+        ${resource.name} {
+          nodes {
+            templates{
+              nodes {
+                name
+                html
+                css
+                js
               }
             }
           }
         }
-      `
-    }) 
-    console.log(resourceTemplates)  
-    const templates = resourceTemplates.data[resource.name].nodes[0].templates
-    console.log(templates)
-    templates.nodes.forEach(template => {
-      Vue.component(template.name, Vue.prototype.$stringToTemplate(`${template.html}${template.css}${template.js}`))
-    })
+      }
+    `
   }) 
-  return true;
+  const templates = resourceTemplates.data[resource.name].nodes[0].templates
+  templates.nodes.forEach(template => {
+    Vue.component(template.name, Vue.prototype.$stringToTemplate(`${template.html}${template.css}${template.js}`))
+  })
+  if (n >= resources.length) {
+    return true;
+  } else {
+    n++
+    loadTemplates(n, resources)
+  }
 }
