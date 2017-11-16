@@ -14,6 +14,7 @@ module.exports = async function(Vue) {
       }
     `
   })
+  console.log(resources)
   resources.data.allResources.nodes.forEach(async resource => {
     resourceTemplates = await apolloClient.query({
       query: gql`
@@ -32,7 +33,8 @@ module.exports = async function(Vue) {
           }
         }
       `
-    })   
+    }) 
+    console.log(resourceTemplates)  
     const templates = resourceTemplates.data[resource.name].nodes[0].templates
     templates.forEach(template => {
       Vue.component(template.name, Vue.prototype.$stringToTemplate(`${template.html}${template.css}${template.js}`))
