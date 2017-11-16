@@ -15,7 +15,7 @@ module.exports = async function(Vue) {
     `
   })
   console.log(resources)
-  const done = await loadTemplates(0, resources, Vue)
+  const done = await loadTemplates(0, resources.data.allResources.nodes, Vue)
   return true;
 }
 
