@@ -50,8 +50,7 @@ const loadTemplates = async (n, resources, Vue) => {
         const stringTemplate = `
         <template>
           <style > ${style} </style>
-          <div id="template-${template.id}" class="template-${template.id}"
-            
+          <div id="template-${template.id}" class="template-${template.id}" >
             ${template.html || ''}
           </div>
         </template>
