@@ -2,26 +2,29 @@ const gql = require('graphql-tag')
 
 module.exports = async function(Vue) {
   const apolloClient = Vue.prototype.$apolloClient;
+
+  //TODO Turn this query into something that only returns unique resource names. So we do not have to filter them out in the following step
   resources = await apolloClient.query({
     query: gql`
       {
-        allResources{
-          nodes {
-            name
-            id
+        allTemplates{
+          nodes{
+            resourceByResourceId {
+              name
+            }
           }
         }
-      }
-    `
+      }`
   })
-  console.log(resources)
+  resourcesWithTemplates = data.allTemplates.nodes.map(e => e.resourceByResourceId.name).filter(onlyUnique)
+  
   const done = await loadTemplates(0, resources.data.allResources.nodes, Vue)
   return true;
 }
 
 const loadTemplates = async (n, resources, Vue) => {
   const apolloClient = Vue.prototype.$apolloClient;
-  const resource = resources[n]
+  const resource = {name: resources[n]}
   if (resource && resource.name) {
     try {
       resourceTemplates = await apolloClient.query({
@@ -64,7 +67,7 @@ const loadTemplates = async (n, resources, Vue) => {
       })
     }
     catch(e) {
-      console.log(e)
+      // console.log(e)
     }
 
   }
@@ -81,4 +84,8 @@ function insertScope (style, scope) {
   return style.trim().replace(regex, (m, g1, g2) => {
     return g1 ? `${g1} ${scope} ${g2}` : `${scope} ${g2}`
   })
+}
+
+function onlyUnique(value, index, self) { 
+  return self.indexOf(value) === index;
 }
