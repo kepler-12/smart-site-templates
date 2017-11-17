@@ -46,12 +46,12 @@ const loadTemplates = async (n, resources, Vue) => {
     templates.nodes.forEach(template => {
       console.log(template);
       if (template.name && template.html && template.js) {
-        const style = insertScope(`${template.css || ''}`, `.template:${template.id}`)
+        const style = insertScope(`${template.css || ''}`, `.template-${template.id}`)
         const stringTemplate = `
         <template>
-          <div id="template:${template.id}" class="template:${template.id}"
-            <style>${style}</style>
-            ${template.html}
+          <div id="template-${template.id}" class="template-${template.id}"
+            <style > ${style} </style>
+            ${template.html || ''}
           </div>
         </template>
         <script>
