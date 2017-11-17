@@ -30,6 +30,7 @@ const loadTemplates = async (n, resources, Vue) => {
             nodes {
               templates{
                 nodes {
+                  id
                   name
                   html
                   css
@@ -45,8 +46,19 @@ const loadTemplates = async (n, resources, Vue) => {
     templates.nodes.forEach(template => {
       console.log(template);
       if (template.name && template.html && template.js) {
-        console.log(`<template>${template.html}</template><style>${template.css || ''}</style><script>${template.js || ''}</script>`)
-        Vue.component(template.name, Vue.prototype.$stringToTemplate(`<style>${template.css || ''}</style><template>${template.html}</template><script>${template.js || ''}</script>`))
+        const style = insertScope(`${template.css || ''}`, `.template:${template.id}`)
+        const template = `
+        <template>
+          <div id="template:${template.id}" class="template:${template.id}"
+            <style>${style}</style>
+            ${template.html}
+          </div>
+        </template>
+        <script>
+          ${template.js || ''}
+        </script>
+        `
+        Vue.component(template.name, Vue.prototype.$stringToTemplate(template))
       }
     })
   }
@@ -56,4 +68,11 @@ const loadTemplates = async (n, resources, Vue) => {
     n++
     return await loadTemplates(n, resources, Vue)
   }
+}
+
+function insertScope (style, scope) {
+  const regex = /(^|\})\s*([^{]+)/g
+  return style.trim().replace(regex, (m, g1, g2) => {
+    return g1 ? `${g1} ${scope} ${g2}` : `${scope} ${g2}`
+  })
 }
