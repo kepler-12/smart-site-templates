@@ -16,7 +16,7 @@ module.exports = async function(Vue) {
         }
       }`
   })
-  resourcesWithTemplates = data.allTemplates.nodes.map(e => e.resourceByResourceId.name).filter(onlyUnique)
+  resourcesWithTemplates = resources.data.allTemplates.nodes.map(e => e.resourceByResourceId.name).filter(onlyUnique)
   
   const done = await loadTemplates(0, resources.data.allResources.nodes, Vue)
   return true;
