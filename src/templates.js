@@ -23,44 +23,50 @@ const loadTemplates = async (n, resources, Vue) => {
   const apolloClient = Vue.prototype.$apolloClient;
   const resource = resources[n]
   if (resource && resource.name) {
-    resourceTemplates = await apolloClient.query({
-      query: gql`
-        {
-          ${resource.name} {
-            nodes {
-              templates{
-                nodes {
-                  id
-                  name
-                  html
-                  css
-                  js
+    try {
+      resourceTemplates = await apolloClient.query({
+        query: gql`
+          {
+            ${resource.name} {
+              nodes {
+                templates{
+                  nodes {
+                    id
+                    name
+                    html
+                    css
+                    js
+                  }
                 }
               }
             }
           }
-        }
-      `
-    }) 
-    const templates = resourceTemplates.data[resource.name].nodes[0].templates
-    templates.nodes.forEach(template => {
-      console.log(template);
-      if (template.name && template.html && template.js) {
-        const style = insertScope(`${template.css || ''}`, `.template-${template.id}`)
-        const stringTemplate = `
-        <template>
-          <div id="template-${template.id}" class="template-${template.id}" >       
-            ${template.html || ''}
-          </div>
-        </template>
-        <style > ${style} </style>
-        <script>
-          ${template.js || ''}
-        </script>
         `
-        Vue.component(template.name, Vue.prototype.$stringToTemplate(stringTemplate))
-      }
-    })
+      }) 
+      const templates = resourceTemplates.data[resource.name].nodes[0].templates
+      templates.nodes.forEach(template => {
+        console.log(template);
+        if (template.name && template.html && template.js) {
+          const style = insertScope(`${template.css || ''}`, `.template-${template.id}`)
+          const stringTemplate = `
+          <template>
+            <div id="template-${template.id}" class="template-${template.id}" >       
+              ${template.html || ''}
+            </div>
+          </template>
+          <style > ${style} </style>
+          <script>
+            ${template.js || ''}
+          </script>
+          `
+          Vue.component(template.name, Vue.prototype.$stringToTemplate(stringTemplate))
+        }
+      })
+    }
+    catch(e) {
+      console.log(e)
+    }
+
   }
   if (n >= resources.length) {
     return true;
