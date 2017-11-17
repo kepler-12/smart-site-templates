@@ -49,8 +49,8 @@ const loadTemplates = async (n, resources, Vue) => {
         const style = insertScope(`${template.css || ''}`, `.template-${template.id}`)
         const stringTemplate = `
         <template>
-          <style > ${style} </style>
           <div id="template-${template.id}" class="template-${template.id}" >
+            <style > ${style} </style>          
             ${template.html || ''}
           </div>
         </template>
