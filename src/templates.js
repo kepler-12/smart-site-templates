@@ -1,4 +1,5 @@
 const gql = require('graphql-tag')
+const camelCase = require('camelcase')
 
 module.exports = async function(Vue) {
   const apolloClient = Vue.prototype.$apolloClient;
@@ -30,7 +31,7 @@ const loadTemplates = async (n, resources, Vue) => {
       resourceTemplates = await apolloClient.query({
         query: gql`
           {
-            ${resource.name} {
+            ${camelCase(resource.name)} {
               nodes {
                 templates{
                   nodes {
@@ -46,7 +47,7 @@ const loadTemplates = async (n, resources, Vue) => {
           }
         `
       }) 
-      const templates = resourceTemplates.data[resource.name].nodes[0].templates
+      const templates = resourceTemplates.data[camelCase(resource.name)].nodes[0].templates
       templates.nodes.forEach(template => {
         console.log(template);
         if (template.name && template.html && template.js) {

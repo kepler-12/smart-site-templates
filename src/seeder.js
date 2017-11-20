@@ -1,3 +1,5 @@
+const gql = require('graphql-tag')
+
 module.exports = async function(client) {
   const template_columns = {
     "default_fields": "json"
@@ -6,7 +8,7 @@ module.exports = async function(client) {
     mutation: gql`
     mutation {
       createFieldSet(input:{
-        name: "templatesads"
+        name: "templates"
         fields: "${JSON.stringify(template_columns).replace(/"/g, '\\"')}"
       }) {
         clientMutationId
