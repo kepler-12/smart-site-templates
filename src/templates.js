@@ -1,6 +1,5 @@
 const gql = require('graphql-tag')
 const camelCase = require('camelcase')
-const cherio = require('cherio')
 
 module.exports = async function(Vue) {
   const apolloClient = Vue.prototype.$apolloClient;
