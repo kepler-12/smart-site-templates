@@ -12,4 +12,4 @@ const attachToResource = require('./src/attachToResource')(client)
 // .then(console.log)
 // .catch(console.error)
 
-attachToResource(2)
+attachToResource(4)

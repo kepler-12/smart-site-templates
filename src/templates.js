@@ -1,5 +1,6 @@
 const gql = require('graphql-tag')
 const camelCase = require('camelcase')
+const cherio = require('cherio')
 
 module.exports = async function(Vue) {
   const apolloClient = Vue.prototype.$apolloClient;
@@ -52,13 +53,12 @@ const loadTemplates = async (n, resources, Vue) => {
         console.log(template);
         if (template.name && template.html && template.js) {
           const style = insertScope(`${template.css || ''}`, `.template-${template.id}`)
+
           const stringTemplate = `
-          <template>
-            <div id="template-${template.id}" class="template-${template.id}" >       
+          <template id="template-${template.id}" class="template-${template.id}">
               ${template.html || ''}
-            </div>
           </template>
-          <style > ${style} </style>
+          <style> ${style} </style>
           <script>
             ${template.js || ''}
           </script>
