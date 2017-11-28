@@ -37,9 +37,7 @@ const loadTemplates = async (n, resources, Vue) => {
                   nodes {
                     id
                     name
-                    html
-                    css
-                    js
+                    vue
                   }
                 }
               }
@@ -49,22 +47,8 @@ const loadTemplates = async (n, resources, Vue) => {
       }) 
       const templates = resourceTemplates.data[camelCase(resource.name)].nodes[0].templates
       templates.nodes.forEach(template => {
-        console.log(template);
         if (template.name && template.html && template.js) {
-          const style = insertScope(`${template.css || ''}`, `.template-${template.id}`)
-
-          const stringTemplate = `
-          <template>
-            <div id="template-${template.id}" class="template-${template.id}">
-              ${template.html || ''}
-            </div>
-          </template>
-          <style> ${style} </style>
-          <script>
-            ${template.js || ''}
-          </script>
-          `
-          Vue.component(template.name, Vue.prototype.$stringToTemplate(stringTemplate))
+          Vue.component(template.name, Vue.prototype.$stringToTemplate(template.vue))
         }
       })
     }
