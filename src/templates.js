@@ -47,7 +47,7 @@ const loadTemplates = async (n, resources, Vue) => {
       }) 
       const templates = resourceTemplates.data[camelCase(resource.name)].nodes[0].templates
       templates.nodes.forEach(template => {
-        if (template.name && template.html && template.js) {
+        if (template.name && template.vue) {
           Vue.component(template.name, Vue.prototype.$stringToTemplate(template.vue))
         }
       })
