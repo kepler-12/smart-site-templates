@@ -1,0 +1,52 @@
+{
+  "_from": "github:kepler-12/smart-site-templates#master",
+  "_id": "smart-site-templates@0.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-GUMg4QLUxESqrTFB/C/DL+l3m8Y=",
+  "_location": "/smart-site-templates",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "github:kepler-12/smart-site-templates#master",
+    "rawSpec": "github:kepler-12/smart-site-templates#master",
+    "saveSpec": "github:kepler-12/smart-site-templates#master",
+    "fetchSpec": null,
+    "gitCommittish": "master"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/",
+    "/smart-site-admin-pages"
+  ],
+  "_resolved": "github:kepler-12/smart-site-templates#a5e47588b959f8cf2369ab83b44b15dc180746f9",
+  "_spec": "github:kepler-12/smart-site-templates#master",
+  "_where": "/Build/smart-site",
+  "author": {
+    "name": "Tyler R Smith"
+  },
+  "bugs": {
+    "url": "https://github.com/kepler12/smart-site-templates/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "apollo-client-preset": "^1.0.2",
+    "camelcase": "^4.1.0",
+    "graphql": "^0.11.7",
+    "graphql-tag": "^2.5.0",
+    "node-fetch": "^1.7.3"
+  },
+  "deprecated": false,
+  "description": "Templates For Smart Sites",
+  "homepage": "https://github.com/kepler12/smart-site-templates#readme",
+  "license": "UNLICENSED",
+  "main": "index.js",
+  "name": "smart-site-templates",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kepler12/smart-site-templates.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.0"
+}
